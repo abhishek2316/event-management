@@ -1,9 +1,9 @@
 spring.application.name=tickets
 
 # Database Connection
-spring.datasource.url=jdbc:postgresql://88.222.212.114:5432/event-ticket 
-spring.datasource.username=event-ticket 
-spring.datasource.password=db@69
+spring.datasource.url=jdbc:postgresql://<SERVER_IP>:<PORT>/<DATABASE_NAME>
+spring.datasource.username=<DB_USERNAME>
+spring.datasource.password=<DB_PASSWORD>
 
 # JPA Configuration
 spring.jpa.hibernate.ddl-auto=update
