@@ -1,0 +1,12 @@
+spring.application.name=tickets
+
+# Database Connection
+spring.datasource.url=jdbc:postgresql://88.222.212.114:5432/event-ticket 
+spring.datasource.username=event-ticket 
+spring.datasource.password=db@69
+
+# JPA Configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
