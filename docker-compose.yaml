@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak
+    environment:
+      # Admin console user (change to a strong password)
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+
+      # DB settings (host IP should be docker0 gateway or host IP reachable from containers)
+      KC_DB: postgres
+      KC_DB_URL: "jdbc:postgresql://<Server-IP>:5432/keycloak"
+      KC_DB_USERNAME: keycloak_user
+      KC_DB_PASSWORD: keycloak@23
+
+      # <--- Add these to allow HTTP on non-localhost IP for testing ---->
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY: "passthrough"
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      # optional: explicitly set the hostname & port Keycloak should use for links
+      KC_HOSTNAME: "<Server-IP>"       # <-- replace with your host IP
+      KC_HOSTNAME_PORT: "9090"
+    
+    command: ["start-dev"]
+    ports:
+      - "9090:8080"   # host 9090 -> container 8080 (Keycloak)
+    restart: unless-stopped
+    # optional: uncomment if you want host.docker.internal name inside container
+    extra_hosts:
+      - "host.docker.internal:<Server-IP>"
