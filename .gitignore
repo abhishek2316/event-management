@@ -21,6 +21,10 @@ src/main/resources/application.properties
 *.iml
 *.ipr
 
+tasks.html
+task-json.html
+tasks.json
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
