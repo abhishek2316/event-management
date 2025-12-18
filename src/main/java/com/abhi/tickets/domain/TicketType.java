@@ -32,6 +32,9 @@ public class TicketType {
     @Column(name = "price", nullable = false)
     private double price;
 
+    @Column(name = "desciption", nullable = false)
+    private String description;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Event event;
 
