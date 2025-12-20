@@ -15,4 +15,3 @@ public interface EventMapper {
     CreateEventRequest fromDto(CreateEventRequestDto dto);
     CreateEventResponseDto toDto(Event event);
 }
-    
