@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -36,5 +37,6 @@ public class EventController {
         CreateEventResponseDto createEventResponseDto = eventMapper.toDto(createEvent);
         return new  ResponseEntity<>(createEventResponseDto, HttpStatus.CREATED);
     }
+
 
 }

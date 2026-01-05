@@ -21,13 +21,20 @@ import java.util.UUID;
 @RequiredArgsConstructor
 // @RequiredArgsConstructor creates a constructor ONLY for required fields.
 public class UserProvisioningFilter extends OncePerRequestFilter {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.equals("/health") || path.startsWith("/health/");
+    }
 
     protected void doFilterInternal(
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null
