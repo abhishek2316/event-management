@@ -3,9 +3,8 @@ package com.abhi.tickets.mappers;
 import com.abhi.tickets.domain.CreateEventRequest;
 import com.abhi.tickets.domain.CreateTicketTypeRequest;
 import com.abhi.tickets.domain.Event;
-import com.abhi.tickets.domain.dtos.CreateEventRequestDto;
-import com.abhi.tickets.domain.dtos.CreateEventResponseDto;
-import com.abhi.tickets.domain.dtos.CreateTicketTypeRequestDto;
+import com.abhi.tickets.domain.TicketType;
+import com.abhi.tickets.domain.dtos.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -14,4 +13,6 @@ public interface EventMapper {
     CreateTicketTypeRequest fromDto(CreateTicketTypeRequestDto dto);
     CreateEventRequest fromDto(CreateEventRequestDto dto);
     CreateEventResponseDto toDto(Event event);
+    ListEventTicketTypesResponseDto toDto(TicketType ticketType);
+    ListEventResponseDto toListEventResponseDto(Event event);
 }
