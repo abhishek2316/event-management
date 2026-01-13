@@ -4,6 +4,7 @@ import com.abhi.tickets.domain.CreateEventRequest;
 import com.abhi.tickets.domain.Event;
 import com.abhi.tickets.domain.dtos.CreateEventRequestDto;
 import com.abhi.tickets.domain.dtos.CreateEventResponseDto;
+import com.abhi.tickets.domain.dtos.GetEventDetailsResponseDto;
 import com.abhi.tickets.domain.dtos.ListEventResponseDto;
 import com.abhi.tickets.mappers.EventMapper;
 import com.abhi.tickets.services.EventService;
@@ -48,6 +49,17 @@ public class EventController {
         Page<Event> events =  eventService.listEventsForOrganizer(userId, pageable );
         return ResponseEntity.ok(events.map(eventMapper::toListEventResponseDto));
     }
+
+    @GetMapping(path = "/{eventId}")
+    public ResponseEntity<GetEventDetailsResponseDto> getEvent(
+            @AuthenticationPrincipal Jwt jwt, @PathVariable UUID eventId
+    ) {
+        UUID userId = parseUUID(jwt);
+        return eventService.getEventForOrganizer(userId, eventId).map(eventMapper::toGetEventDetailsResponseDto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
 
     private UUID parseUUID(Jwt jwt) {
         return UUID.fromString(jwt.getSubject());
