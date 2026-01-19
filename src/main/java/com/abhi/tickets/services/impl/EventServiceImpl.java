@@ -1,6 +1,8 @@
 package com.abhi.tickets.services.impl;
 
 import com.abhi.tickets.domain.*;
+import com.abhi.tickets.exceptions.EventNotFoundException;
+import com.abhi.tickets.exceptions.EventUpdateException;
 import com.abhi.tickets.exceptions.UserNotFoundException;
 import com.abhi.tickets.repositories.EventRepository;
 import com.abhi.tickets.repositories.UserRepository;
@@ -71,6 +73,26 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event updateEventForOrganizer(UUID organizerId, UUID id, UpdateEventRequest event) {
-        return null;
+        if(null = event.getId()){
+            throw new  EventUpdateException("Event with id not found");
+        }
+
+        if(id.equals(event.getId())){
+            throw new EventUpdateException("Event with id not found");
+        }
+
+        Event existingEvent =  eventRepository
+                .findByIdAndOrganizerId(id, organizerId)
+                .orElseThrow( () -> new EventNotFoundException(
+                        String.format("Event with id %s not found", id)
+                ));
+
+        existingEvent.setName(event.getName());
+        existingEvent.setStart(event.getStart());
+        existingEvent.setEnd(event.getEnd());
+        existingEvent.setVenue(event.getVenue());
+        existingEvent.setSale_start(event.getSaleStart());
+        existingEvent.setSale_end(event.getSaleEnd());
+        existingEvent.setStatus(event.getStatus());
     }
 }
